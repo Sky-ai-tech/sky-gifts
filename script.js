@@ -112,3 +112,58 @@ document.addEventListener("keydown", (event) => {
   if (event.key === "ArrowLeft") showProject(activeProjectIndex - 1);
   if (event.key === "ArrowRight") showProject(activeProjectIndex + 1);
 });
+
+/* ─── Hero Carousel ─── */
+(function() {
+  const slides = document.querySelectorAll('.carousel-slide');
+  const dotsContainer = document.getElementById('carousel-dots');
+  if (!slides.length || !dotsContainer) return;
+  
+  let current = 0;
+  const total = slides.length;
+  let interval;
+  
+  // 创建圆点
+  slides.forEach((_, i) => {
+    const dot = document.createElement('button');
+    dot.className = 'carousel-dot' + (i === 0 ? ' active' : '');
+    dot.setAttribute('aria-label', 'Go to slide ' + (i + 1));
+    dot.addEventListener('click', () => goTo(i));
+    dotsContainer.appendChild(dot);
+  });
+  
+  const dots = dotsContainer.querySelectorAll('.carousel-dot');
+  
+  function goTo(index) {
+    slides[current].classList.remove('active', 'zoom-out');
+    dots[current].classList.remove('active');
+    
+    current = index;
+    
+    // 当前幻灯片加 zoom-out（缓慢放大效果）
+    slides[current].classList.add('active', 'zoom-out');
+    dots[current].classList.add('active');
+  }
+  
+  function next() {
+    goTo((current + 1) % total);
+  }
+  
+  function startAutoplay() {
+    stopAutoplay();
+    interval = setInterval(next, 5000);
+  }
+  
+  function stopAutoplay() {
+    clearInterval(interval);
+  }
+  
+  // 第一张初始化
+  slides[0].classList.add('active');
+  
+  // 鼠标悬停暂停
+  document.querySelector('.hero-carousel').addEventListener('mouseenter', stopAutoplay);
+  document.querySelector('.hero-carousel').addEventListener('mouseleave', startAutoplay);
+  
+  startAutoplay();
+})();
