@@ -1,0 +1,16 @@
+{
+  "name": "Sky Gifts",
+  "short_name": "Sky Gifts",
+  "description": "Custom promotional products and branded merchandise made in China.",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#071f36",
+  "theme_color": "#071f36",
+  "icons": [
+    {
+      "src": "/assets/icons/favicon.png",
+      "sizes": "512x512",
+      "type": "image/png"
+    }
+  ]
+}
